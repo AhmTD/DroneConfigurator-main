@@ -23,6 +23,14 @@ public class ButtonManager : MonoBehaviour
         ShowImageWithTween(currentIndex);
     }
 
+    public void PreviousImage()
+    {
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = images.Length - 1;
+
+        ShowImageWithTween(currentIndex);
+    }
     private void ShowImage(int index)
     {
         for (int i = 0; i < images.Length; i++)
@@ -47,9 +55,4 @@ public class ButtonManager : MonoBehaviour
         });
     }
 
-    public void OnImageClick()
-    {
-        // Burada resme týklanýnca yapýlmasýný istediðiniz iþlemi gerçekleþtirin
-        Debug.Log("Image clicked!");
-    }
 }
