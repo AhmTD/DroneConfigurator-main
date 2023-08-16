@@ -7,6 +7,7 @@ public class BackPropellerSwitch : ObjectSwitcher
     public ModelSwitch modelSwitch;
     [SerializeField]
     private List<GameObject> backpropellerList;
+    public List<GameObject> backpropellerImageList;
     public int currentIndexDrone;
     void Start()
     {
@@ -27,6 +28,15 @@ public class BackPropellerSwitch : ObjectSwitcher
             backpropeller.SetActive(i == index);
         }
     }
+    
+    public  void ChangeUIImage(int index)
+    {
+        for (int i = 0; i < backpropellerImageList.Count; i++)
+        {
+            GameObject backpropeller = backpropellerImageList[i];
+            backpropeller.SetActive(i == index);
+        }
+    }
 
     public override void ToRightChangerFuncButton()
     {
@@ -36,6 +46,7 @@ public class BackPropellerSwitch : ObjectSwitcher
             if (currentIndex >= backpropellerList.Count)
                 currentIndex = 0;
             ChangeObject(currentIndex);
+           ChangeUIImage(currentIndex);
         }
 
 
@@ -49,6 +60,7 @@ public class BackPropellerSwitch : ObjectSwitcher
             if (currentIndex < 0)
                 currentIndex = backpropellerList.Count - 1;
             ChangeObject(currentIndex);
+            ChangeUIImage(currentIndex);
         }
     }
 }

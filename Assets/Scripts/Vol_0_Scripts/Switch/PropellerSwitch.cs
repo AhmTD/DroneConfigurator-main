@@ -9,6 +9,8 @@ public class PropellerSwitch : ObjectSwitcher
     [SerializeField]
     private List<GameObject> propellersListD0, propellersListD1, propellersListD2;
     private List<List<GameObject>> propellersLists = new List<List<GameObject>>();
+    public GameObject[] propellerUIImage;
+
 
 
     public int droneCurrentIndex;
@@ -40,6 +42,18 @@ public class PropellerSwitch : ObjectSwitcher
         }
     }
 
+    public void ChangeUIImage(int index)
+    {
+       
+        for (int i = 0; i < propellerUIImage.Length; i++)
+        {
+            GameObject propeller = propellerUIImage[i];
+            propeller.SetActive(i == index);
+        }
+    }
+
+
+
     public override void ToRightChangerFuncButton()
     {
         List<GameObject> propellersList = propellersLists[droneCurrentIndex];
@@ -49,6 +63,7 @@ public class PropellerSwitch : ObjectSwitcher
             currentIndex = 0;
         }
         ChangeObject(currentIndex);
+        ChangeUIImage(currentIndex);
     }
 
     public override void ToLeftChangerFuncButton()
@@ -60,5 +75,6 @@ public class PropellerSwitch : ObjectSwitcher
             currentIndex = propellersList.Count-1;
         }
         ChangeObject(currentIndex);
+        ChangeUIImage(currentIndex);
     }
 }

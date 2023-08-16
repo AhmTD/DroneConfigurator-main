@@ -1616,7 +1616,7 @@ MonoBehaviour:
   - {r: 0.7019608, g: 0.7254902, b: 0.75686276, a: 1}
   - {r: 0.2784314, g: 0.44705883, b: 0.654902, a: 1}
   - {r: 0.8235294, g: 0.29411766, b: 0.3137255, a: 1}
-  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.14509805, g: 0.14117648, b: 0.14117648, a: 1}
   backGround: {fileID: 1503535273}
   transitionDuration: 1
 --- !u!4 &617032701
@@ -4904,7 +4904,6 @@ GameObject:
   - component: {fileID: 1254600166}
   - component: {fileID: 1254600168}
   - component: {fileID: 1254600167}
-  - component: {fileID: 1254600169}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -4970,21 +4969,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254600165}
   m_CullTransparentMesh: 1
---- !u!114 &1254600169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254600165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.3661445, g: 0.41509432, b: 0.37313735, a: 1}
-  m_EffectDistance: {x: 5, y: 5}
-  m_UseGraphicAlpha: 1
 --- !u!1 &1257509949
 GameObject:
   m_ObjectHideFlags: 0
@@ -6857,6 +6841,10 @@ MonoBehaviour:
   - {fileID: 6631388040432611174}
   - {fileID: 6631388040730026988}
   currentIndex: 0
+  backGround:
+  - {fileID: 2407291868027783101}
+  - {fileID: 2407291868546466742}
+  - {fileID: 2407291868845493981}
   droneCurrentIndex: 0
 --- !u!1 &1689853645
 GameObject:
@@ -7030,6 +7018,10 @@ MonoBehaviour:
   - {fileID: 6631388041037826633}
   currentDroneIndex: 0
   targetPosition: {fileID: 2108144084}
+  backGround:
+  - {fileID: 1254600167}
+  - {fileID: 1051140641}
+  - {fileID: 2407291868539123524}
 --- !u!4 &1745367156
 Transform:
   m_ObjectHideFlags: 0

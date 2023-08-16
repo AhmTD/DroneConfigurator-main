@@ -2,17 +2,25 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DroneController : MonoBehaviour
 {
+    [Header("DroneButton")]
     public GameObject[] closeButton;
     public GameObject guardButton;
     private Vector3 guardStartPos;
     public GameObject[] drones; // Dronlarýn listesi
     public int currentDroneIndex;
+    public Transform targetPosition; // Hedef pozisyon
+
+    public Image[] backGround;
+
+
+
     private void Start()
     {
-       guardStartPos=guardButton.transform.position;    
+        guardStartPos = guardButton.transform.position;
     }
     // Dronlarý devre dýþý býrakýr
     private void Update()
@@ -30,7 +38,30 @@ public class DroneController : MonoBehaviour
     // Belirli bir dronu etkinleþtirir
     public void ActivateDrone(int index)
     {
+     
+        // Önceki dronun rengini eski haline getir
+        backGround[currentDroneIndex].color = Color.white;
+
+        // Yeni dronun rengini ayarla
+        backGround[index].color = Color.gray;
+
+        // currentDroneIndex'i güncelle
         currentDroneIndex = index;
+
+        // Önceki dronun rengini ayarla
+        if (currentDroneIndex > 0)
+        {
+            backGround[currentDroneIndex - 1].color = Color.white;
+        }
+
+        // Sonraki dronun rengini ayarla
+        if (currentDroneIndex < backGround.Length - 1)
+        {
+            backGround[currentDroneIndex + 1].color = Color.white;
+        }
+
+
+
         // Önce tüm dronlarý devre dýþý býrakýn
         DeactivateAllDrones();
 
@@ -43,7 +74,7 @@ public class DroneController : MonoBehaviour
 
     public void ButtonController()
     {
-        if (currentDroneIndex !=0)
+        if (currentDroneIndex != 0)
         {
             // Butonlarý yavaþça kaybolmasý için loop animasyonu uygula
             for (int i = 0; i < closeButton.Length; i++)
@@ -65,15 +96,11 @@ public class DroneController : MonoBehaviour
         }
     }
 
-
-
-    public Transform targetPosition; // Hedef pozisyon
-
     public void MoveToTargetPosition()
     {
 
         // DOTween ile pozisyonu hedef pozisyona taþý
         guardButton.transform.DOMove(targetPosition.position, 1.0f);
-       
+
     }
 }

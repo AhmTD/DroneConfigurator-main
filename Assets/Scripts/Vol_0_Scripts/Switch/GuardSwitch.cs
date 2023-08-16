@@ -9,7 +9,9 @@ public class GuardSwitch : ObjectSwitcher
     [SerializeField]
     private List<GameObject> guardListD0, guardListD1, guardListD2;
     private List<List<GameObject>> guardLists = new List<List<GameObject>>();
+    public GameObject[] UIGuardImage;
     public int droneCurrentIndex;
+
     private void Start()
     {
         guardLists = new List<List<GameObject>>
@@ -37,6 +39,15 @@ public class GuardSwitch : ObjectSwitcher
             guard.SetActive(i == index);
         }
     }
+    public  void ChangeUIImage(int index)
+    {
+
+        for (int i = 0; i < UIGuardImage.Length; i++)
+        {
+            GameObject guard = UIGuardImage[i];
+            guard.SetActive(i == index);
+        }
+    }
 
     public override void ToRightChangerFuncButton()
     {
@@ -47,6 +58,7 @@ public class GuardSwitch : ObjectSwitcher
             currentIndex = 0;
         }
         ChangeObject(currentIndex);
+        ChangeUIImage(currentIndex);
     }
 
     public override void ToLeftChangerFuncButton()
@@ -58,5 +70,7 @@ public class GuardSwitch : ObjectSwitcher
             currentIndex = guardList.Count - 1;
         }
         ChangeObject(currentIndex);
+        ChangeUIImage(currentIndex);
+
     }
 }
