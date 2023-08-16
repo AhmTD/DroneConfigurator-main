@@ -1,12 +1,18 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BodyColor : MonoBehaviour
 {
     public DroneController modelSwitch;
     public GameObject[] drones; // Drone modellerini tutacak dizi
     public Material[] materials;
+    public Color[] colors;
+    public Image backGround;
+    public float transitionDuration = 1.0f;
     protected int currentMaterialIndex;
     protected int activeDroneIndex;
 
@@ -42,6 +48,10 @@ public class BodyColor : MonoBehaviour
             if (droneRenderer != null)
             {
                 droneRenderer.material = materials[materialIndex];
+                backGround.DOColor(colors[materialIndex], transitionDuration);
+                  
+             
+
             }
         }
     }

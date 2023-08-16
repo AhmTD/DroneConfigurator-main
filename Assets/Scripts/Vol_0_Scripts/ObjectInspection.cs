@@ -15,7 +15,7 @@ public class ObjectInspection : MonoBehaviour
     [Header("SetActiveControl")]
     private DroneRotation droneRotation;
     public GameObject objectScript;
-    public GameObject uýElements;
+    public GameObject[] uýElements;
 
     [Header("Rotation")]
     private bool isRotating = false;
@@ -25,6 +25,7 @@ public class ObjectInspection : MonoBehaviour
     private bool isResetting = false;
     private Quaternion startRotation;
     private Quaternion targetRotation = Quaternion.identity;
+    public GameObject resetRotationButton;
 
 
     private void Start()
@@ -58,8 +59,10 @@ public class ObjectInspection : MonoBehaviour
                 droneRotation.enabled = false;
             }
 
-
-            uýElements.SetActive(false);
+            for (int i = 0; i < uýElements.Length; i++)
+            {
+                uýElements[i].SetActive(false);
+            }
 
         }
         else
@@ -75,7 +78,11 @@ public class ObjectInspection : MonoBehaviour
                 droneRotation.enabled = true;
             }
             isResetting = false;
-            uýElements.SetActive(true);
+
+            for (int i = 0; i < uýElements.Length; i++)
+            {
+                uýElements[i].SetActive(true);
+            }
         }
 
 
@@ -89,6 +96,7 @@ public class ObjectInspection : MonoBehaviour
             float journeyLength = Vector3.Distance(startPosition, zoomPosition.position);
             float fractionOfJourney = distanceCovered / journeyLength;
             transform.position = Vector3.Lerp(startPosition, zoomPosition.position, fractionOfJourney);
+            resetRotationButton.SetActive(true);
 
 
         }
@@ -107,6 +115,7 @@ public class ObjectInspection : MonoBehaviour
             {
                 isResetting = true;
             }
+            resetRotationButton.SetActive(false);
 
         }
     }

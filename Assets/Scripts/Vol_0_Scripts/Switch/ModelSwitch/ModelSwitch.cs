@@ -81,4 +81,9 @@ public class ModelSwitch : MonoBehaviour
 
         // Diðer scriptleri de buraya ekleyebilirsiniz
     }
+
+    public void DroneIndexUIControl()
+    {
+
+    }
 }
