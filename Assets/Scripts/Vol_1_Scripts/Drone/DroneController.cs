@@ -17,6 +17,7 @@ public class DroneController : MonoBehaviour
     public GameObject[] drones; // Dronlarýn listesi
     public int currentDroneIndex;
     public Transform targetPosition; // Hedef pozisyon
+    public Color color;
 
     public Image[] backGround;
     private void Start()
@@ -44,7 +45,7 @@ public class DroneController : MonoBehaviour
         // Önceki dronun rengini eski haline getir
         backGround[currentDroneIndex].color = Color.white;
         // Yeni dronun rengini ayarla
-        backGround[index].color = Color.gray;
+        backGround[index].color = color;
         // currentDroneIndex'i güncelle
         currentDroneIndex = index;
         // Önceki dronun rengini ayarla

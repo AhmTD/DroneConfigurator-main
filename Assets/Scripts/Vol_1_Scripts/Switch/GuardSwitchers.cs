@@ -11,7 +11,7 @@ public class GuardSwitchers : MonoBehaviour
     public DroneController modelSwitch;
     public Renderer guardRenderer;
     public Material material;
-    public Material mainMaterial;
+
 
     public Color color;
 
@@ -34,6 +34,7 @@ public class GuardSwitchers : MonoBehaviour
 };
         modelSwitch = GameObject.Find("DroneManager").GetComponent<DroneController>();
 
+        ChangeObject(0);
     }
     private void Update()
     {
@@ -67,7 +68,7 @@ public class GuardSwitchers : MonoBehaviour
 
         }
         guardRenderer = guardList[index].GetComponent<Renderer>();
-        mainMaterial = guardRenderer.material;
+
         ChangeMaterials();
 
     }
@@ -77,10 +78,10 @@ public class GuardSwitchers : MonoBehaviour
         // Eðer þu anki materyal birinci materyalse, ikinci materyali ata; aksi halde birinci materyali ata.
         Material newMaterial = material;
 
-        StartCoroutine(ChangeMaterialsCoroutine(newMaterial, mainMaterial));
+        StartCoroutine(ChangeMaterialsCoroutine(newMaterial));
     }
 
-    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial, Material mainMaterial)
+    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial)
     {
         var materialArray = guardRenderer.sharedMaterials;
 

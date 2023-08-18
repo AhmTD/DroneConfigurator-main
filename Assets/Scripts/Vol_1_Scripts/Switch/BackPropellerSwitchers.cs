@@ -11,6 +11,7 @@ public class BackPropellerSwitchers : MonoBehaviour
     [SerializeField]
     private List<GameObject> backPropellerListD0;
     public Image[] backGround;
+    public Color color;
 
     public int droneCurrentIndex;
     private void Start()
@@ -30,7 +31,7 @@ public class BackPropellerSwitchers : MonoBehaviour
         // Önceki dronun rengini eski haline getir
         backGround[droneCurrentIndex].color = Color.white;
         // Yeni dronun rengini ayarla
-        backGround[index].color = Color.gray;
+        backGround[index].color = color;
         // Önceki dronun rengini ayarla
         if (index > 0)
         {
