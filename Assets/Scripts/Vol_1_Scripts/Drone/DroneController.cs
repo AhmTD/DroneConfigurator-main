@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class DroneController : MonoBehaviour
 {
+    public Renderer droneRenderer;
+    public Material material;
+    public GameObject[] bodyMesh;
+
     [Header("DroneButton")]
     public GameObject[] closeButton;
     public GameObject guardButton;
@@ -15,12 +19,10 @@ public class DroneController : MonoBehaviour
     public Transform targetPosition; // Hedef pozisyon
 
     public Image[] backGround;
-
-
-
     private void Start()
     {
         guardStartPos = guardButton.transform.position;
+   
     }
     // Dronlarý devre dýþý býrakýr
     private void Update()
@@ -38,38 +40,55 @@ public class DroneController : MonoBehaviour
     // Belirli bir dronu etkinleþtirir
     public void ActivateDrone(int index)
     {
-     
+
         // Önceki dronun rengini eski haline getir
         backGround[currentDroneIndex].color = Color.white;
-
         // Yeni dronun rengini ayarla
         backGround[index].color = Color.gray;
-
         // currentDroneIndex'i güncelle
         currentDroneIndex = index;
-
         // Önceki dronun rengini ayarla
         if (currentDroneIndex > 0)
         {
             backGround[currentDroneIndex - 1].color = Color.white;
         }
-
         // Sonraki dronun rengini ayarla
         if (currentDroneIndex < backGround.Length - 1)
         {
             backGround[currentDroneIndex + 1].color = Color.white;
         }
-
-
-
         // Önce tüm dronlarý devre dýþý býrakýn
         DeactivateAllDrones();
-
         // Belirli indeksteki dronu etkinleþtirin
         if (index >= 0 && index < drones.Length)
         {
             drones[index].SetActive(true);
         }
+        droneRenderer = bodyMesh[index].GetComponent<Renderer>();
+        ChangeMaterials();
+    }
+
+    public void ChangeMaterials()
+    {
+        // Eðer þu anki materyal birinci materyalse, ikinci materyali ata; aksi halde birinci materyali ata.
+        Material newMaterial = material;
+
+        StartCoroutine(ChangeMaterialsCoroutine(newMaterial));
+    }
+
+    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial)
+    {
+        var materialArray = droneRenderer.sharedMaterials;
+
+        // Yeni materyali dronun renderer'ýna atayýn
+        materialArray[1] = newMaterial;
+        droneRenderer.sharedMaterials = materialArray;
+        yield return new WaitForSeconds(2.0f); // 2 saniye bekleyin
+        materialArray[1] = null;
+        droneRenderer.sharedMaterials = materialArray;
+
+
+        // Þu anki materyali tekrar dronun renderer'ýna atayýn
     }
 
     public void ButtonController()
