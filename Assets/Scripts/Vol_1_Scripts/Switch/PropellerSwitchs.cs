@@ -7,18 +7,20 @@ using Image = UnityEngine.UI.Image;
 
 public class PropellerSwitchs : MonoBehaviour
 {
+    // Baþka bir DroneController bileþenine referans saðlar.
     public DroneController modelSwitch;
-    public GameObject[] meshPropeller;
-    public Renderer propellerRenderer;
-    public Material material;
-    [SerializeField]
-    private List<GameObject> propellersListD0, propellersListD1, propellersListD2;
+    // Farklý pervane gruplarýný içeren listeler.
+    [SerializeField] private List<GameObject> propellersListD0, propellersListD1, propellersListD2;
+    // Tüm pervane gruplarýný içeren ana liste.
     private List<List<GameObject>> propellersLists = new List<List<GameObject>>();
+    // Mevcut pervane grubunun indeksini belirtir.
     public int currentIndex;
+    // Arka plan görüntülerini içeren dizi.
     public Image[] backGround;
+    // Arka plan rengini belirlemek için kullanýlýr.
     public Color color;
-
     public int droneCurrentIndex;
+   
     private void Start()
     {
         propellersLists = new List<List<GameObject>>
@@ -39,19 +41,21 @@ public class PropellerSwitchs : MonoBehaviour
 
         #region BackGroundColorChance
         // Önceki dronun rengini eski haline getir
-        backGround[droneCurrentIndex].color = Color.white;
+        backGround[currentIndex].color = Color.white;
         // Yeni dronun rengini ayarla
         backGround[index].color = color;
+
+        currentIndex = index;
         // Önceki dronun rengini ayarla
-        if (index > 0)
+        if (currentIndex > 0)
         {
-            backGround[index - 1].color = Color.white;
+            backGround[currentIndex - 1].color = Color.white;
         }
 
         // Sonraki dronun rengini ayarla
-        if (index < backGround.Length - 1)
+        if (currentIndex < backGround.Length - 1)
         {
-            backGround[index + 1].color = Color.white;
+            backGround[currentIndex + 1].color = Color.white;
         }
         #endregion
 
@@ -64,32 +68,8 @@ public class PropellerSwitchs : MonoBehaviour
             GameObject propeller = propellersList[i];
             propeller.SetActive(i == index);
         }
-        for (int i = 0; i < meshPropeller.Length; i++)
-        {
-            propellerRenderer = meshPropeller[i].GetComponent<Renderer>();
-            ChangeMaterials();
-        }
-
-    }
-    public void ChangeMaterials()
-    {
-        // Eðer þu anki materyal birinci materyalse, ikinci materyali ata; aksi halde birinci materyali ata.
-        Material newMaterial = material;
-
-        StartCoroutine(ChangeMaterialsCoroutine(newMaterial));
     }
 
-    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial)
-    {
-        var materialArray = propellerRenderer.sharedMaterials;
-        // Yeni materyali dronun renderer'ýna atayýn
-        materialArray[1] = newMaterial;
-        propellerRenderer.sharedMaterials = materialArray;
-        yield return new WaitForSeconds(2.0f); // 2 saniye bekleyin
-        materialArray[1] = null;
-        propellerRenderer.sharedMaterials = materialArray;
-        // Þu anki materyali tekrar dronun renderer'ýna atayýn
-    }
 
 
 }

@@ -6,6 +6,7 @@ public class GuardColor : MonoBehaviour
 {
 
     public DroneController modelSwitch;
+    public Renderer guardRenderer;
     public List<GameObject> guardListD0, guardListD1, guardListD2;
     private List<List<GameObject>> guardLists = new List<List<GameObject>>();
     public Material[] materials;
@@ -47,8 +48,11 @@ public class GuardColor : MonoBehaviour
 
             for (int i = 0; i < guard.Count; i++)
             {
-                Renderer renderer = guard[i].GetComponent<Renderer>();
-                renderer.material = materials[materialIndex];
+                guardRenderer = guard[i].GetComponent<Renderer>();
+                var materialArray = guardRenderer.sharedMaterials;
+                materialArray[0] = materials[materialIndex];
+                materialArray[1] = materials[materialIndex];
+                guardRenderer.sharedMaterials = materialArray;
             }
 
 

@@ -10,16 +10,10 @@ public class ModelSwitch : MonoBehaviour
 
     public List<GameObject> drone2PropButtonsList = new List<GameObject>(); // drone2PropButtons GameObject'lerini tutan liste
 
- 
     void Start()
     {
        
         SwitchToDrone(currentDroneIndex); // Baþlangýçta ilk droneu aktif hale getir
-    }
-
-    void Update()
-    {
-       
     }
 
     // Butonlara baðlanacak fonksiyonlar

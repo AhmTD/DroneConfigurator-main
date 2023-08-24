@@ -6,14 +6,10 @@ using UnityEngine.UI;
 
 public class DroneController : MonoBehaviour
 {
-    public Renderer droneRenderer;
-    public Material material;
-    public GameObject[] bodyMesh;
-
     [Header("DroneButton")]
     public GameObject[] closeButton;
     public GameObject guardButton;
-    private Vector3 guardStartPos;
+    public Transform guardStartPos;
     public GameObject[] drones; // Dronlarýn listesi
     public int currentDroneIndex;
     public Transform targetPosition; // Hedef pozisyon
@@ -22,8 +18,7 @@ public class DroneController : MonoBehaviour
     public Image[] backGround;
     private void Start()
     {
-        guardStartPos = guardButton.transform.position;
-   
+       
     }
     // Dronlarý devre dýþý býrakýr
     private void Update()
@@ -65,33 +60,8 @@ public class DroneController : MonoBehaviour
         {
             drones[index].SetActive(true);
         }
-        droneRenderer = bodyMesh[index].GetComponent<Renderer>();
-        ChangeMaterials();
+
     }
-
-    public void ChangeMaterials()
-    {
-        // Eðer þu anki materyal birinci materyalse, ikinci materyali ata; aksi halde birinci materyali ata.
-        Material newMaterial = material;
-
-        StartCoroutine(ChangeMaterialsCoroutine(newMaterial));
-    }
-
-    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial)
-    {
-        var materialArray = droneRenderer.sharedMaterials;
-
-        // Yeni materyali dronun renderer'ýna atayýn
-        materialArray[1] = newMaterial;
-        droneRenderer.sharedMaterials = materialArray;
-        yield return new WaitForSeconds(2.0f); // 2 saniye bekleyin
-        materialArray[1] = null;
-        droneRenderer.sharedMaterials = materialArray;
-
-
-        // Þu anki materyali tekrar dronun renderer'ýna atayýn
-    }
-
     public void ButtonController()
     {
         if (currentDroneIndex != 0)
@@ -111,7 +81,7 @@ public class DroneController : MonoBehaviour
             {
                 closeButton[i].SetActive(true); // Önce butonu aktifleþtir
                 closeButton[i].transform.DOScale(Vector3.one, 0.5f); // Bu satýr, butonun boyutunu bir'e yavaþça deðiþtirecek
-                guardButton.transform.DOMove(guardStartPos, 1.0f);
+                guardButton.transform.DOMove(guardStartPos.position, 1.0f);
             }
         }
     }

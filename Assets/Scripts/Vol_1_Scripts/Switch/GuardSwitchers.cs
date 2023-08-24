@@ -9,19 +9,15 @@ public class GuardSwitchers : MonoBehaviour
 {
 
     public DroneController modelSwitch;
-    public Renderer guardRenderer;
-    public Material material;
-
-
-    public Color color;
-
     [SerializeField]
     private List<GameObject> guardListD0, guardListD1, guardListD2;
     private List<List<GameObject>> guardLists = new List<List<GameObject>>();
     public int currentIndex;
+    public int droneCurrentIndex;
+
+    public Color color;
     public Image[] backGround;
 
-    public int droneCurrentIndex;
     private void Start()
     {
 
@@ -45,19 +41,21 @@ public class GuardSwitchers : MonoBehaviour
     public void ChangeObject(int index)
     {
         // Önceki dronun rengini eski haline getir
-        backGround[droneCurrentIndex].color = Color.white;
+        backGround[currentIndex].color = Color.white;
         // Yeni dronun rengini ayarla
         backGround[index].color = color;
+
+        currentIndex = index;
         // Önceki dronun rengini ayarla
-        if (index > 0)
+        if (currentIndex > 0)
         {
-            backGround[index - 1].color = Color.white;
+            backGround[currentIndex - 1].color = Color.white;
         }
 
         // Sonraki dronun rengini ayarla
-        if (index < backGround.Length - 1)
+        if (currentIndex < backGround.Length - 1)
         {
-            backGround[index + 1].color = Color.white;
+            backGround[currentIndex + 1].color = Color.white;
         }
         List<GameObject> guardList = guardLists[droneCurrentIndex];
         for (int i = 0; i < guardList.Count; i++)
@@ -67,30 +65,8 @@ public class GuardSwitchers : MonoBehaviour
 
 
         }
-        guardRenderer = guardList[index].GetComponent<Renderer>();
-
-        ChangeMaterials();
 
     }
 
-    public void ChangeMaterials()
-    {
-        // Eðer þu anki materyal birinci materyalse, ikinci materyali ata; aksi halde birinci materyali ata.
-        Material newMaterial = material;
 
-        StartCoroutine(ChangeMaterialsCoroutine(newMaterial));
-    }
-
-    private System.Collections.IEnumerator ChangeMaterialsCoroutine(Material newMaterial)
-    {
-        var materialArray = guardRenderer.sharedMaterials;
-
-        // Yeni materyali dronun renderer'ýna atayýn
-        materialArray[1] = newMaterial;
-        guardRenderer.sharedMaterials = materialArray;
-        yield return new WaitForSeconds(2.0f); // 2 saniye bekleyin
-        materialArray[1] = null;
-        guardRenderer.sharedMaterials = materialArray;
-        // Þu anki materyali tekrar dronun renderer'ýna atayýn
-    }
 }

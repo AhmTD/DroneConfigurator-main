@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PropellerSwitch : ObjectSwitcher
 {
+    //Hangi dronun akti olduðu verisi alýnýyor
     public ModelSwitch modelSwitch;
     [SerializeField]
     private List<GameObject> propellersListD0, propellersListD1, propellersListD2;
